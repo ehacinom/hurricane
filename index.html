@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3!</title>
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
+        <!--<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>-->
+        <style type="text/css"> 
+           /*svg {background-color: "green";}*/
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+          // Constants
+          // svg
+          var margin = {top: 20, right: 10, bottom: 20, left: 10};
+          var width = 960 - margin.left - margin.right,
+              height = 500 - margin.top - margin.bottom;
+
+          // global variable to hold dataset
+          var dataset;
+          // drops
+          var ndrops = 20;
+          var drops = [];
+          for (var i = 1; i < ndrops-1; i++) {
+             var d = [i*width/ndrops, i*height/ndrops]
+             drops.push(d);}
+          var dur = 250;
+          var rad = 30;
+          
+          // colors
+          var blues = ["rgb(95, 192, 179)", "rgb(78, 184, 163)",
+                       "rgb(139, 209, 192)", "rgb(158, 218, 203)",
+                       "rgb(214, 239, 229)", "rgb(191, 231, 225)",
+                       "rgb(60, 177, 188)", "rgb(78, 185, 180)",
+                       "rgb(128, 207, 216)", "rgb(72, 183, 212)",
+                       "rgb(121, 202, 186)"];
+          var color = {drop0: blues[3],
+                       drop1: blues[8]};
+
+          // svg
+          // http://bl.ocks.org/mbostock/3019563
+          var svg = d3.select("body").append("svg")
+             .attr({width: width + margin.left + margin.right,
+                    height: height + margin.top + margin.bottom})
+             .append("g")
+             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          // create drops
+          svg.selectAll("circle")
+             .data(drops)
+             .enter()
+             .append("circle")
+             .attr({cx: function(d) {return d[0];},
+                    cy: function(d) {return d[1];},
+                    r: rad,
+                    fill: color.drop0})
+             .on("mouseover", 
+                 function(d) {d3.select(this).
+                              attr({fill: color.drop1});})
+             .on("mouseout",
+                 function(d) {d3.select(this)
+                                .transition()
+                                .duration(dur)
+                                .attr({fill: color.drop0});});
+             
+             
+        </script>
+    </body>
+</html>
