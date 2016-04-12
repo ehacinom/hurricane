@@ -25,7 +25,6 @@
           // implement drop tinkle with ripples
           // both at onset, randomly, and with hover
         // problem 4: text associated with drops
-        // problem 5: click to open new page
         
           // Constants
           // svg
@@ -35,13 +34,11 @@
           // global variable to hold dataset
           var dataset;
           // drops
-          var ndrops = 40;
+          var ndrops = 20;
           var drops = [];
-          for (var i = 0; i < ndrops+1; i++) {
-             for (var j = 0; j < ndrops+1; j++) {
-                var d = [i*width/ndrops, j*height/ndrops];
+          for (var i = 0; i <= ndrops; i++) {
+                var d = [i*width/ndrops, i*height/ndrops];
                 drops.push(d);}
-             }
           var dur = 250;
           var rad = 25;
           
@@ -86,7 +83,8 @@
                               .duration(dur)
                               .attr({fill: color.drop0,
                                      opacity: opacity.drop0});})
-             ;//.on("click",);
+                              .on("click", function() 
+                                  {window.open("curtain.html","_self");});
              
              
         </script>
